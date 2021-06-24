@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace ProyectoPrueba.SQLContext
+namespace ProyectoPrueba.ContextSQL
 {
-    public partial class Institution
+    public partial class Disease
     {
-        public Institution()
+        public Disease()
         {
             Citizens = new HashSet<Citizen>();
         }
 
         public int Id { get; set; }
-        public string Institution1 { get; set; }
+        public string Disease1 { get; set; }
 
         public virtual ICollection<Citizen> Citizens { get; set; }
     }

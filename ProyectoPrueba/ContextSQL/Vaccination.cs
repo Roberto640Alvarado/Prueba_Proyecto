@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace ProyectoPrueba.SQLContext
+namespace ProyectoPrueba.ContextSQL
 {
     public partial class Vaccination
     {
@@ -15,7 +15,7 @@ namespace ProyectoPrueba.SQLContext
         public int Id { get; set; }
         public DateTime DateTimeApplication { get; set; }
         public DateTime DateTimeProcess { get; set; }
-        public DateTime? TimeSecondaryEffect { get; set; }
+        public string TimeSecondaryEffect { get; set; }
         public int IdPlaceVaccination { get; set; }
         public int? IdEffectSecondary { get; set; }
 

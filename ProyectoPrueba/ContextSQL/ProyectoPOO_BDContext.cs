@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace ProyectoPrueba.SQLContext
+namespace ProyectoPrueba.ContextSQL
 {
-    public partial class Proyecto_Final_BD_POO_2021Context : DbContext
+    public partial class ProyectoPOO_BDContext : DbContext
     {
-        public Proyecto_Final_BD_POO_2021Context()
+        public ProyectoPOO_BDContext()
         {
         }
 
-        public Proyecto_Final_BD_POO_2021Context(DbContextOptions<Proyecto_Final_BD_POO_2021Context> options)
+        public ProyectoPOO_BDContext(DbContextOptions<ProyectoPOO_BDContext> options)
             : base(options)
         {
         }
@@ -36,7 +36,7 @@ namespace ProyectoPrueba.SQLContext
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=LAPTOP-00OSCEQ3;Database=Proyecto_Final_BD_POO_2021;Trusted_Connection=True");
+                optionsBuilder.UseSqlServer("Server=LAPTOP-00OSCEQ3;Database=ProyectoPOO_BD;Trusted_Connection=True");
             }
         }
 
@@ -90,13 +90,13 @@ namespace ProyectoPrueba.SQLContext
                     .WithMany(p => p.Appointments)
                     .HasForeignKey(d => d.DuiCitizen)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__APPOINTME__dui_c__4BAC3F29");
+                    .HasConstraintName("FK__APPOINTME__dui_c__48CFD27E");
 
                 entity.HasOne(d => d.IdVaccinationNavigation)
                     .WithMany(p => p.Appointments)
                     .HasForeignKey(d => d.IdVaccination)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__APPOINTME__id_va__4CA06362");
+                    .HasConstraintName("FK__APPOINTME__id_va__49C3F6B7");
             });
 
             modelBuilder.Entity<Booth>(entity =>
@@ -123,20 +123,20 @@ namespace ProyectoPrueba.SQLContext
                     .WithMany(p => p.Booths)
                     .HasForeignKey(d => d.IdManager)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BOOTH__id_manage__44FF419A");
+                    .HasConstraintName("FK__BOOTH__id_manage__4222D4EF");
             });
 
             modelBuilder.Entity<Citizen>(entity =>
             {
                 entity.HasKey(e => e.Dui)
-                    .HasName("PK__CITIZEN__D876F1BE0DC0B70B");
+                    .HasName("PK__CITIZEN__D876F1BEED49EBA9");
 
                 entity.ToTable("CITIZEN");
 
-                entity.HasIndex(e => e.EMail, "UQ__CITIZEN__31660442BCDA502A")
+                entity.HasIndex(e => e.EMail, "UQ__CITIZEN__31660442557B85C6")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Phone, "UQ__CITIZEN__B43B145F4C1696B5")
+                entity.HasIndex(e => e.Phone, "UQ__CITIZEN__B43B145FC851A1E0")
                     .IsUnique();
 
                 entity.Property(e => e.Dui)
@@ -157,7 +157,6 @@ namespace ProyectoPrueba.SQLContext
                     .HasColumnName("E_mail");
 
                 entity.Property(e => e.IdAdministrator)
-                    .IsRequired()
                     .HasMaxLength(8)
                     .IsUnicode(false)
                     .HasColumnName("id_administrator");
@@ -182,19 +181,18 @@ namespace ProyectoPrueba.SQLContext
                 entity.HasOne(d => d.IdAdministratorNavigation)
                     .WithMany(p => p.Citizens)
                     .HasForeignKey(d => d.IdAdministrator)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CITIZEN__id_admi__48CFD27E");
+                    .HasConstraintName("FK__CITIZEN__id_admi__45F365D3");
 
                 entity.HasOne(d => d.IdDiseaseNavigation)
                     .WithMany(p => p.Citizens)
                     .HasForeignKey(d => d.IdDisease)
-                    .HasConstraintName("FK__CITIZEN__id_dise__49C3F6B7");
+                    .HasConstraintName("FK__CITIZEN__id_dise__46E78A0C");
 
                 entity.HasOne(d => d.IdInstitutionNavigation)
                     .WithMany(p => p.Citizens)
                     .HasForeignKey(d => d.IdInstitution)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CITIZEN__id_inst__4AB81AF0");
+                    .HasConstraintName("FK__CITIZEN__id_inst__47DBAE45");
             });
 
             modelBuilder.Entity<Disease>(entity =>
@@ -231,7 +229,7 @@ namespace ProyectoPrueba.SQLContext
             {
                 entity.ToTable("EMPLOYEE");
 
-                entity.HasIndex(e => e.EMailInstitutional, "UQ__EMPLOYEE__510293D1817622D7")
+                entity.HasIndex(e => e.EMailInstitutional, "UQ__EMPLOYEE__510293D1FCAA0C9E")
                     .IsUnique();
 
                 entity.Property(e => e.Id)
@@ -269,19 +267,19 @@ namespace ProyectoPrueba.SQLContext
                 entity.HasOne(d => d.IdAdministratorNavigation)
                     .WithMany(p => p.Employees)
                     .HasForeignKey(d => d.IdAdministrator)
-                    .HasConstraintName("FK__EMPLOYEE__id_adm__47DBAE45");
+                    .HasConstraintName("FK__EMPLOYEE__id_adm__44FF419A");
 
                 entity.HasOne(d => d.IdBoothNavigation)
                     .WithMany(p => p.Employees)
                     .HasForeignKey(d => d.IdBooth)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EMPLOYEE__id_boo__45F365D3");
+                    .HasConstraintName("FK__EMPLOYEE__id_boo__4316F928");
 
                 entity.HasOne(d => d.IdTypeNavigation)
                     .WithMany(p => p.Employees)
                     .HasForeignKey(d => d.IdType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EMPLOYEE__id_typ__46E78A0C");
+                    .HasConstraintName("FK__EMPLOYEE__id_typ__440B1D61");
             });
 
             modelBuilder.Entity<Institution>(entity =>
@@ -323,23 +321,23 @@ namespace ProyectoPrueba.SQLContext
                     .WithMany(p => p.Logins)
                     .HasForeignKey(d => d.IdBooth)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__LOGIN__id_booth__440B1D61");
+                    .HasConstraintName("FK__LOGIN__id_booth__412EB0B6");
 
                 entity.HasOne(d => d.IdEmployeeNavigation)
                     .WithMany(p => p.Logins)
                     .HasForeignKey(d => d.IdEmployee)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__LOGIN__id_employ__4316F928");
+                    .HasConstraintName("FK__LOGIN__id_employ__403A8C7D");
             });
 
             modelBuilder.Entity<Manager>(entity =>
             {
                 entity.ToTable("MANAGER");
 
-                entity.HasIndex(e => e.EMail, "UQ__MANAGER__3166044240FB92ED")
+                entity.HasIndex(e => e.EMail, "UQ__MANAGER__3166044289066199")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Phone, "UQ__MANAGER__B43B145F37A6C0FD")
+                entity.HasIndex(e => e.Phone, "UQ__MANAGER__B43B145F8F535FC8")
                     .IsUnique();
 
                 entity.Property(e => e.Id)
@@ -418,19 +416,20 @@ namespace ProyectoPrueba.SQLContext
                 entity.Property(e => e.IdPlaceVaccination).HasColumnName("id_place_vaccination");
 
                 entity.Property(e => e.TimeSecondaryEffect)
-                    .HasColumnType("datetime")
+                    .HasMaxLength(20)
+                    .IsUnicode(false)
                     .HasColumnName("time_secondary_effect");
 
                 entity.HasOne(d => d.IdEffectSecondaryNavigation)
                     .WithMany(p => p.Vaccinations)
                     .HasForeignKey(d => d.IdEffectSecondary)
-                    .HasConstraintName("FK__VACCINATI__id_ef__4D94879B");
+                    .HasConstraintName("FK__VACCINATI__id_ef__4AB81AF0");
 
                 entity.HasOne(d => d.IdPlaceVaccinationNavigation)
                     .WithMany(p => p.Vaccinations)
                     .HasForeignKey(d => d.IdPlaceVaccination)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__VACCINATI__id_pl__4E88ABD4");
+                    .HasConstraintName("FK__VACCINATI__id_pl__4BAC3F29");
             });
 
             OnModelCreatingPartial(modelBuilder);

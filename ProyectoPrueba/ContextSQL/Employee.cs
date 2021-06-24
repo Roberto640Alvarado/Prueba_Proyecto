@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace ProyectoPrueba.SQLContext
+namespace ProyectoPrueba.ContextSQL
 {
     public partial class Employee
     {
