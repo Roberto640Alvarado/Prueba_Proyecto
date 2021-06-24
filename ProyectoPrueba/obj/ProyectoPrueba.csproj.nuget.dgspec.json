@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\rober\\Desktop\\ProyectoPrueba (1)\\ProyectoPrueba\\ProyectoPrueba.csproj": {}
+    "C:\\Users\\rober\\Desktop\\VacunacionProyecto\\ProyectoPrueba\\ProyectoPrueba.csproj": {}
   },
   "projects": {
-    "C:\\Users\\rober\\Desktop\\ProyectoPrueba (1)\\ProyectoPrueba\\ProyectoPrueba.csproj": {
+    "C:\\Users\\rober\\Desktop\\VacunacionProyecto\\ProyectoPrueba\\ProyectoPrueba.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rober\\Desktop\\ProyectoPrueba (1)\\ProyectoPrueba\\ProyectoPrueba.csproj",
+        "projectUniqueName": "C:\\Users\\rober\\Desktop\\VacunacionProyecto\\ProyectoPrueba\\ProyectoPrueba.csproj",
         "projectName": "ProyectoPrueba",
-        "projectPath": "C:\\Users\\rober\\Desktop\\ProyectoPrueba (1)\\ProyectoPrueba\\ProyectoPrueba.csproj",
+        "projectPath": "C:\\Users\\rober\\Desktop\\VacunacionProyecto\\ProyectoPrueba\\ProyectoPrueba.csproj",
         "packagesPath": "C:\\Users\\rober\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rober\\Desktop\\ProyectoPrueba (1)\\ProyectoPrueba\\obj\\",
+        "outputPath": "C:\\Users\\rober\\Desktop\\VacunacionProyecto\\ProyectoPrueba\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

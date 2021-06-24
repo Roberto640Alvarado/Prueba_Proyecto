@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ProyectoPrueba.ContextSQL
 {
-    public partial class ProyectoPOO_BDContext : DbContext
+    public partial class ContextProyectoPOO_BDContext : DbContext
     {
-        public ProyectoPOO_BDContext()
+        public ContextProyectoPOO_BDContext()
         {
         }
 
-        public ProyectoPOO_BDContext(DbContextOptions<ProyectoPOO_BDContext> options)
+        public ContextProyectoPOO_BDContext(DbContextOptions<ContextProyectoPOO_BDContext> options)
             : base(options)
         {
         }
@@ -36,7 +36,7 @@ namespace ProyectoPrueba.ContextSQL
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=LAPTOP-00OSCEQ3;Database=ProyectoPOO_BD;Trusted_Connection=True");
+                optionsBuilder.UseSqlServer("Server=LAPTOP-00OSCEQ3;Database=ContextProyectoPOO_BD;Trusted_Connection=True");
             }
         }
 
@@ -70,27 +70,21 @@ namespace ProyectoPrueba.ContextSQL
             {
                 entity.ToTable("APPOINTMENT");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.DateTime)
                     .HasColumnType("datetime")
                     .HasColumnName("date_time");
 
-                entity.Property(e => e.DuiCitizen)
-                    .IsRequired()
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .HasColumnName("dui_citizen");
+                entity.Property(e => e.IdCitizen).HasColumnName("id_citizen");
 
                 entity.Property(e => e.IdVaccination).HasColumnName("id_vaccination");
 
-                entity.HasOne(d => d.DuiCitizenNavigation)
+                entity.HasOne(d => d.IdCitizenNavigation)
                     .WithMany(p => p.Appointments)
-                    .HasForeignKey(d => d.DuiCitizen)
+                    .HasForeignKey(d => d.IdCitizen)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__APPOINTME__dui_c__48CFD27E");
+                    .HasConstraintName("FK__APPOINTME__id_ci__48CFD27E");
 
                 entity.HasOne(d => d.IdVaccinationNavigation)
                     .WithMany(p => p.Appointments)
@@ -128,27 +122,27 @@ namespace ProyectoPrueba.ContextSQL
 
             modelBuilder.Entity<Citizen>(entity =>
             {
-                entity.HasKey(e => e.Dui)
-                    .HasName("PK__CITIZEN__D876F1BEED49EBA9");
-
                 entity.ToTable("CITIZEN");
 
-                entity.HasIndex(e => e.EMail, "UQ__CITIZEN__31660442557B85C6")
+                entity.HasIndex(e => e.EMail, "UQ__CITIZEN__3166044227B0CF18")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Phone, "UQ__CITIZEN__B43B145FC851A1E0")
+                entity.HasIndex(e => e.Phone, "UQ__CITIZEN__B43B145F9BB49493")
                     .IsUnique();
 
-                entity.Property(e => e.Dui)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .HasColumnName("dui");
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Direction)
                     .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("direction");
+
+                entity.Property(e => e.Dui)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("dui");
 
                 entity.Property(e => e.EMail)
                     .IsRequired()
@@ -160,8 +154,6 @@ namespace ProyectoPrueba.ContextSQL
                     .HasMaxLength(8)
                     .IsUnicode(false)
                     .HasColumnName("id_administrator");
-
-                entity.Property(e => e.IdDisease).HasColumnName("id_disease");
 
                 entity.Property(e => e.IdInstitution).HasColumnName("id_institution");
 
@@ -183,11 +175,6 @@ namespace ProyectoPrueba.ContextSQL
                     .HasForeignKey(d => d.IdAdministrator)
                     .HasConstraintName("FK__CITIZEN__id_admi__45F365D3");
 
-                entity.HasOne(d => d.IdDiseaseNavigation)
-                    .WithMany(p => p.Citizens)
-                    .HasForeignKey(d => d.IdDisease)
-                    .HasConstraintName("FK__CITIZEN__id_dise__46E78A0C");
-
                 entity.HasOne(d => d.IdInstitutionNavigation)
                     .WithMany(p => p.Citizens)
                     .HasForeignKey(d => d.IdInstitution)
@@ -199,15 +186,21 @@ namespace ProyectoPrueba.ContextSQL
             {
                 entity.ToTable("DISEASE");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Disease1)
                     .IsRequired()
-                    .HasMaxLength(20)
+                    .HasMaxLength(200)
                     .IsUnicode(false)
                     .HasColumnName("disease");
+
+                entity.Property(e => e.IdCitizen).HasColumnName("id_citizen");
+
+                entity.HasOne(d => d.IdCitizenNavigation)
+                    .WithMany(p => p.Diseases)
+                    .HasForeignKey(d => d.IdCitizen)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__DISEASE__id_citi__46E78A0C");
             });
 
             modelBuilder.Entity<EffectSecondary>(entity =>
@@ -229,7 +222,7 @@ namespace ProyectoPrueba.ContextSQL
             {
                 entity.ToTable("EMPLOYEE");
 
-                entity.HasIndex(e => e.EMailInstitutional, "UQ__EMPLOYEE__510293D1FCAA0C9E")
+                entity.HasIndex(e => e.EMailInstitutional, "UQ__EMPLOYEE__510293D1FC848CFD")
                     .IsUnique();
 
                 entity.Property(e => e.Id)
@@ -301,9 +294,7 @@ namespace ProyectoPrueba.ContextSQL
             {
                 entity.ToTable("LOGIN");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.DateTime)
                     .HasColumnType("datetime")
@@ -334,10 +325,10 @@ namespace ProyectoPrueba.ContextSQL
             {
                 entity.ToTable("MANAGER");
 
-                entity.HasIndex(e => e.EMail, "UQ__MANAGER__3166044289066199")
+                entity.HasIndex(e => e.EMail, "UQ__MANAGER__316604422D8002D3")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Phone, "UQ__MANAGER__B43B145F8F535FC8")
+                entity.HasIndex(e => e.Phone, "UQ__MANAGER__B43B145F09D5D192")
                     .IsUnique();
 
                 entity.Property(e => e.Id)
@@ -399,9 +390,7 @@ namespace ProyectoPrueba.ContextSQL
             {
                 entity.ToTable("VACCINATION");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.DateTimeApplication)
                     .HasColumnType("datetime")

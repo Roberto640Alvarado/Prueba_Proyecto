@@ -9,10 +9,10 @@ namespace ProyectoPrueba.ContextSQL
     {
         public int Id { get; set; }
         public DateTime DateTime { get; set; }
-        public string DuiCitizen { get; set; }
+        public int IdCitizen { get; set; }
         public int IdVaccination { get; set; }
 
-        public virtual Citizen DuiCitizenNavigation { get; set; }
+        public virtual Citizen IdCitizenNavigation { get; set; }
         public virtual Vaccination IdVaccinationNavigation { get; set; }
     }
 }
